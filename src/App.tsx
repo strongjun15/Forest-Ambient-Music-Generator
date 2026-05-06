@@ -76,6 +76,18 @@ function App() {
     stopProgress();
   }, [stopPolling, stopProgress]);
 
+  const handleSampleSelect = useCallback((url: string) => {
+    setImagePreview(url);
+    setProcessingStep('idle');
+    setAudioUrl(null);
+    setGeneratedPrompt('');
+    setError('');
+    setHsv(null);
+    setProgress(0);
+    stopPolling();
+    stopProgress();
+  }, [stopPolling, stopProgress]);
+
   const handleClearImage = useCallback(() => {
     setImagePreview(null);
     setProcessingStep('idle');
@@ -222,6 +234,7 @@ function App() {
         <div className="space-y-6 fade-in-up-delay">
           <ImageUpload
             onImageSelect={handleImageSelect}
+            onSampleSelect={handleSampleSelect}
             preview={imagePreview}
             onClear={handleClearImage}
             lang={lang}
