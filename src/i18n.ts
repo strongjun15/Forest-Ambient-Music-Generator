@@ -41,8 +41,8 @@ const translations = {
   },
   ko: {
     navTitle: '포레스트 앰비언트',
-    heroTitle1: '포레스트 앰비언트',
-    heroTitle2: '음악 생성기',
+    heroTitle1: 'Forest Ambient',
+    heroTitle2: 'Music Generator',
     heroDesc: '숲 이미지를 업로드하면 환경 데이터를 분석하여 AI 기반 앰비언트 음악을 생성합니다.',
     uploadLabel: '숲 이미지를 업로드하세요',
     uploadHint: '드래그 앤 드롭 또는 클릭하여 선택',
@@ -72,8 +72,8 @@ const translations = {
   },
   ja: {
     navTitle: 'フォレスト アンビエント',
-    heroTitle1: 'フォレスト アンビエント',
-    heroTitle2: '音楽ジェネレーター',
+    heroTitle1: 'Forest Ambient',
+    heroTitle2: 'Music Generator',
     heroDesc: '森の画像をアップロードすると、環境データを分析してAIベースのアンビエント音楽を生成します。',
     uploadLabel: '森の画像をアップロード',
     uploadHint: 'ドラッグ＆ドロップまたはクリックして選択',
@@ -103,8 +103,8 @@ const translations = {
   },
   zh: {
     navTitle: '森林环境音乐',
-    heroTitle1: '森林环境',
-    heroTitle2: '音乐生成器',
+    heroTitle1: 'Forest Ambient',
+    heroTitle2: 'Music Generator',
     heroDesc: '上传森林图片，我们将分析环境数据并生成AI驱动的环境音乐。',
     uploadLabel: '上传森林图片',
     uploadHint: '拖放或点击选择',
