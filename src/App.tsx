@@ -23,6 +23,7 @@ function App() {
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
   const [error, setError] = useState<string>('');
   const [hsv, setHsv] = useState<{ h: number; s: number; v: number } | null>(null);
+  const [edgeDensity, setEdgeDensity] = useState<number | null>(null);
   const [progress, setProgress] = useState(0);
   const pollingRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const progressRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -71,6 +72,7 @@ function App() {
     setGeneratedPrompt('');
     setError('');
     setHsv(null);
+    setEdgeDensity(null);
     setProgress(0);
     stopPolling();
     stopProgress();
@@ -83,6 +85,7 @@ function App() {
     setGeneratedPrompt('');
     setError('');
     setHsv(null);
+    setEdgeDensity(null);
     setProgress(0);
     stopPolling();
     stopProgress();
@@ -95,6 +98,7 @@ function App() {
     setGeneratedPrompt('');
     setError('');
     setHsv(null);
+    setEdgeDensity(null);
     setProgress(0);
     stopPolling();
     stopProgress();
@@ -154,6 +158,7 @@ function App() {
       const result = analyzeImage(img);
       setGeneratedPrompt(result.prompt);
       setHsv(result.hsv);
+      setEdgeDensity(result.edgeDensity);
 
       setProcessingStep('generating');
       startProgressSimulation();
@@ -191,6 +196,7 @@ function App() {
     setGeneratedPrompt('');
     setError('');
     setHsv(null);
+    setEdgeDensity(null);
     setProgress(0);
   }, [stopPolling, stopProgress]);
 
@@ -261,8 +267,8 @@ function App() {
             </div>
           )}
 
-          {hsv && (processingStep === 'generating' || processingStep === 'complete') && (
-            <HsvDisplay h={hsv.h} s={hsv.s} v={hsv.v} lang={lang} />
+          {hsv && edgeDensity !== null && (processingStep === 'generating' || processingStep === 'complete') && (
+            <HsvDisplay h={hsv.h} s={hsv.s} v={hsv.v} edgeDensity={edgeDensity} lang={lang} />
           )}
 
           <ProcessingState
