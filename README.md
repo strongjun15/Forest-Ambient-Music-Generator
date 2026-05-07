@@ -49,7 +49,7 @@ Using **OpenCV's Canny Filter**, we calculate the **Edge Density** of the image:
 
 ## 📜 License
 
-Copyright © 2026 **[Your Name]**.  
+Copyright © 2026 **Lumos**.  
 This project is [MIT](https://opensource.org/licenses/MIT) licensed.
 
 **Built with ✨ Bolt.new**
