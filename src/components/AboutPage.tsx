@@ -77,7 +77,7 @@ export function AboutPage({ lang }: AboutPageProps) {
             >
               <div className="bg-gray-50 rounded-3xl p-3 sm:p-4 shadow-xl">
                 <img
-                  src="/스크린샷_2026-05-07_오후_8.18.20.png"
+                  src="/ambient_music.jpeg"
                   alt="Ambient music listening"
                   className="w-full h-auto rounded-2xl object-cover"
                 />
