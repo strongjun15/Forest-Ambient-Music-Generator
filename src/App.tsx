@@ -5,6 +5,7 @@ import { ProcessingState, type ProcessingStep } from './components/ProcessingSta
 import { MusicPlayer } from './components/MusicPlayer';
 import { HsvDisplay } from './components/HsvDisplay';
 import { LanguageSelector } from './components/LanguageSelector';
+import { AboutPage } from './components/AboutPage';
 import { analyzeImage, loadImageFromSrc } from './utils/imageAnalysis';
 import { type Lang, t } from './i18n';
 
@@ -15,8 +16,11 @@ const EDGE_FUNCTION_URL = `${SUPABASE_URL}/functions/v1/generate-music`;
 
 const POLL_INTERVAL_MS = 3000;
 
+type TabView = 'generate' | 'about';
+
 function App() {
   const [lang, setLang] = useState<Lang>('en');
+  const [activeTab, setActiveTab] = useState<TabView>('generate');
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [processingStep, setProcessingStep] = useState<ProcessingStep>('idle');
   const [generatedPrompt, setGeneratedPrompt] = useState<string>('');
@@ -202,94 +206,132 @@ function App() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Hero Illustration Area */}
-      <div className="relative w-full h-[45vh] sm:h-[50vh] overflow-hidden">
-        <img
-          src="https://images.pexels.com/photos/15286/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop"
-          alt="Forest illustration"
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white" />
-
-        {/* Top Nav */}
-        <div className="absolute top-6 left-0 right-0 px-6 flex items-center justify-between z-10">
-          <div className="flex items-center gap-2 px-5 py-2.5 bg-white/80 backdrop-blur-md rounded-full shadow-lg border border-white/50">
-            <TreePine className="w-4 h-4 text-forest-700" />
-            <span className="text-sm font-medium text-forest-900 tracking-tight">
-              {t(lang, 'navTitle')}
-            </span>
-          </div>
-          <LanguageSelector current={lang} onChange={setLang} />
-        </div>
-      </div>
-
-      {/* Main Content */}
-      <div className="relative max-w-2xl mx-auto px-6 -mt-16 pb-20">
-        <div className="text-center mb-12 fade-in-up">
-          <h1 className="font-serif text-5xl sm:text-6xl font-bold text-gray-900 leading-[1.1] tracking-tight">
-            {t(lang, 'heroTitle1')}
-          </h1>
-          <h2 className="font-serif text-5xl sm:text-6xl font-bold text-gray-900 leading-[1.1] tracking-tight mt-1">
-            {t(lang, 'heroTitle2')}
-          </h2>
-          <p className="mt-6 text-base text-gray-500 max-w-md mx-auto leading-relaxed">
-            {t(lang, 'heroDesc')}
-          </p>
-        </div>
-
-        <div className="space-y-6 fade-in-up-delay">
-          <ImageUpload
-            onImageSelect={handleImageSelect}
-            onSampleSelect={handleSampleSelect}
-            preview={imagePreview}
-            onClear={handleClearImage}
-            lang={lang}
-          />
-
-          {imagePreview && processingStep === 'idle' && !audioUrl && (
-            <div className="flex items-center justify-center gap-3">
+      {/* Fixed Top Nav */}
+      <div className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 pt-4 sm:pt-6 pointer-events-none">
+        <div className="flex items-center justify-between">
+          {/* Left: Logo + Tab Navigation */}
+          <div className="flex items-center gap-3 pointer-events-auto">
+            <div className="flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-md rounded-full shadow-lg border border-white/50">
+              <TreePine className="w-4 h-4 text-forest-700" />
+              <span className="text-sm font-medium text-forest-900 tracking-tight">
+                {t(lang, 'navTitle')}
+              </span>
+            </div>
+            <div className="flex items-center bg-white/80 backdrop-blur-md rounded-full shadow-lg border border-white/50 p-1">
               <button
-                onClick={handleGenerate}
-                className="px-8 py-3.5 bg-gray-900 hover:bg-gray-800 text-white text-sm font-medium
-                           rounded-full shadow-md transition-all duration-200
-                           hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]"
+                onClick={() => setActiveTab('generate')}
+                className={`px-4 py-1.5 text-xs font-medium rounded-full transition-all duration-200 ${
+                  activeTab === 'generate'
+                    ? 'bg-gray-900 text-white shadow-sm'
+                    : 'text-gray-600 hover:text-gray-900'
+                }`}
               >
-                {t(lang, 'generateBtn')}
+                Music Generate
               </button>
               <button
-                onClick={handleClearImage}
-                className="px-6 py-3.5 bg-white hover:bg-gray-50 text-gray-700 text-sm font-medium
-                           rounded-full border border-gray-200 shadow-sm
-                           transition-all duration-200 hover:shadow-md active:scale-[0.98]"
+                onClick={() => setActiveTab('about')}
+                className={`px-4 py-1.5 text-xs font-medium rounded-full transition-all duration-200 ${
+                  activeTab === 'about'
+                    ? 'bg-gray-900 text-white shadow-sm'
+                    : 'text-gray-600 hover:text-gray-900'
+                }`}
               >
-                {t(lang, 'resetSelectBtn')}
+                About
               </button>
             </div>
-          )}
+          </div>
 
-          {hsv && edgeDensity !== null && (processingStep === 'generating' || processingStep === 'complete') && (
-            <HsvDisplay h={hsv.h} s={hsv.s} v={hsv.v} edgeDensity={edgeDensity} lang={lang} />
-          )}
-
-          <ProcessingState
-            step={processingStep}
-            prompt={generatedPrompt}
-            error={error}
-            lang={lang}
-            progress={progress}
-          />
-
-          {audioUrl && processingStep === 'complete' && (
-            <MusicPlayer audioUrl={audioUrl} onReset={handleReset} lang={lang} />
-          )}
+          {/* Right: Language Selector */}
+          <div className="pointer-events-auto">
+            <LanguageSelector current={lang} onChange={setLang} />
+          </div>
         </div>
-
-        <footer className="mt-20 text-center">
-          <p className="text-xs text-gray-400 tracking-wide">
-            {t(lang, 'footer')}
-          </p>
-        </footer>
       </div>
+
+      {/* Page Content */}
+      {activeTab === 'generate' ? (
+        <>
+          {/* Hero Illustration Area */}
+          <div className="relative w-full h-[45vh] sm:h-[50vh] overflow-hidden">
+            <img
+              src="https://images.pexels.com/photos/15286/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop"
+              alt="Forest illustration"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white" />
+          </div>
+
+          {/* Main Content */}
+          <div className="relative max-w-2xl mx-auto px-6 -mt-16 pb-20">
+            <div className="text-center mb-12 fade-in-up">
+              <h1 className="font-serif text-5xl sm:text-6xl font-bold text-gray-900 leading-[1.1] tracking-tight">
+                {t(lang, 'heroTitle1')}
+              </h1>
+              <h2 className="font-serif text-5xl sm:text-6xl font-bold text-gray-900 leading-[1.1] tracking-tight mt-1">
+                {t(lang, 'heroTitle2')}
+              </h2>
+              <p className="mt-6 text-base text-gray-500 max-w-md mx-auto leading-relaxed">
+                {t(lang, 'heroDesc')}
+              </p>
+            </div>
+
+            <div className="space-y-6 fade-in-up-delay">
+              <ImageUpload
+                onImageSelect={handleImageSelect}
+                onSampleSelect={handleSampleSelect}
+                preview={imagePreview}
+                onClear={handleClearImage}
+                lang={lang}
+              />
+
+              {imagePreview && processingStep === 'idle' && !audioUrl && (
+                <div className="flex items-center justify-center gap-3">
+                  <button
+                    onClick={handleGenerate}
+                    className="px-8 py-3.5 bg-gray-900 hover:bg-gray-800 text-white text-sm font-medium
+                               rounded-full shadow-md transition-all duration-200
+                               hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]"
+                  >
+                    {t(lang, 'generateBtn')}
+                  </button>
+                  <button
+                    onClick={handleClearImage}
+                    className="px-6 py-3.5 bg-white hover:bg-gray-50 text-gray-700 text-sm font-medium
+                               rounded-full border border-gray-200 shadow-sm
+                               transition-all duration-200 hover:shadow-md active:scale-[0.98]"
+                  >
+                    {t(lang, 'resetSelectBtn')}
+                  </button>
+                </div>
+              )}
+
+              {hsv && edgeDensity !== null && (processingStep === 'generating' || processingStep === 'complete') && (
+                <HsvDisplay h={hsv.h} s={hsv.s} v={hsv.v} edgeDensity={edgeDensity} lang={lang} />
+              )}
+
+              <ProcessingState
+                step={processingStep}
+                prompt={generatedPrompt}
+                error={error}
+                lang={lang}
+                progress={progress}
+              />
+
+              {audioUrl && processingStep === 'complete' && (
+                <MusicPlayer audioUrl={audioUrl} onReset={handleReset} lang={lang} />
+              )}
+            </div>
+
+            <footer className="mt-20 text-center">
+              <p className="text-xs text-gray-400 tracking-wide">
+                {t(lang, 'footer')}
+              </p>
+            </footer>
+          </div>
+        </>
+      ) : (
+        <AboutPage lang={lang} />
+      )}
     </div>
   );
 }

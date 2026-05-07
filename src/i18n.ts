@@ -38,6 +38,11 @@ const translations = {
     edgeDensityDesc: 'Determines musical complexity, instruments & tempo',
     progress: 'Progress',
     samplePhotosHint: 'Select a sample photo of Jeju Gotjawal forest',
+    aboutHeroText: 'The forest atmosphere,\ncaptured in ambient music.',
+    aboutSection1Title: 'Ambient Music that Captures the Forest Atmosphere',
+    aboutSection1Body: 'Ambient Music is a genre that emphasizes timbre, texture, and atmosphere over traditional rhythm or melody. True to its name meaning "environment" or "surroundings," it features dreamlike, peaceful sounds that aid concentration, relaxation, and meditation.',
+    aboutSection2Title: 'How Ambient Music Generation Works',
+    aboutSection2Body: '',
   },
   ko: {
     navTitle: '포레스트 앰비언트',
@@ -69,6 +74,11 @@ const translations = {
     edgeDensityDesc: '음악의 복잡도, 악기 구성, 템포를 결정합니다',
     progress: '진행률',
     samplePhotosHint: '제주도 곶자왈의 예시 사진을 선택하세요',
+    aboutHeroText: '숲의 분위기,\n엠비언트 음악으로 담아내다.',
+    aboutSection1Title: '숲의 분위기를 담아내는 엠비언트 음악',
+    aboutSection1Body: '엠비언트 음악 (Ambient Music) 은 전통적인 리듬이나 멜로디보다 음색, 질감, 분위기를 강조하는 장르입니다. \'환경\', \'주변\'라는 말 그대로의 뜻처럼 몽환적이고 평화로운 소리가 특징이며, 집중, 휴식, 명상에 도움을 줍니다.',
+    aboutSection2Title: '엠비언트 음악 생성의 원리',
+    aboutSection2Body: '',
   },
   ja: {
     navTitle: 'フォレスト アンビエント',
@@ -100,6 +110,11 @@ const translations = {
     edgeDensityDesc: '音楽の複雑さ、楽器構成、テンポを決定します',
     progress: '進捗',
     samplePhotosHint: '済州島コッチャワルのサンプル写真を選択してください',
+    aboutHeroText: '森の雰囲気を、\nアンビエント音楽に込めて。',
+    aboutSection1Title: '森の雰囲気を捉えるアンビエント音楽',
+    aboutSection1Body: 'アンビエント音楽は、従来のリズムやメロディよりも音色、質感、雰囲気を重視するジャンルです。「環境」「周囲」という言葉の通り、幻想的で平和な音が特徴で、集中、リラクゼーション、瞑想に役立ちます。',
+    aboutSection2Title: 'アンビエント音楽生成の仕組み',
+    aboutSection2Body: '',
   },
   zh: {
     navTitle: '森林环境音乐',
@@ -131,6 +146,11 @@ const translations = {
     edgeDensityDesc: '决定音乐复杂度、乐器配置和节奏',
     progress: '进度',
     samplePhotosHint: '选择济州岛榧子林的示例照片',
+    aboutHeroText: '森林的氛围，\n用环境音乐来表达。',
+    aboutSection1Title: '捕捉森林氛围的环境音乐',
+    aboutSection1Body: '环境音乐（Ambient Music）是一种强调音色、质感和氛围而非传统节奏或旋律的音乐类型。正如其名"环境"、"周围"的含义，它以梦幻、平和的声音为特征，有助于集中注意力、放松和冥想。',
+    aboutSection2Title: '环境音乐生成的原理',
+    aboutSection2Body: '',
   },
 } as const;
 
