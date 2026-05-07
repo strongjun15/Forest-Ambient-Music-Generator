@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { useScroll, useTransform, motion } from 'framer-motion';
-import { Github } from 'lucide-react';
+import { Github, ExternalLink } from 'lucide-react';
 import { type Lang, t } from '../i18n';
 
 interface AboutPageProps {
@@ -109,12 +109,30 @@ export function AboutPage({ lang }: AboutPageProps) {
               {t(lang, 'aboutSection2Title')}
             </motion.h2>
 
+            {/* MusicGen image card */}
             <motion.div
               variants={revealVariants}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: '-80px' }}
               transition={{ duration: 0.7, ease: 'easeOut', delay: 0.1 }}
+              className="mb-8"
+            >
+              <div className="bg-gray-50 rounded-3xl p-3 sm:p-4 shadow-xl">
+                <img
+                  src="/MusicGen.jpeg"
+                  alt="MusicGen model"
+                  className="w-full h-auto rounded-2xl object-cover"
+                />
+              </div>
+            </motion.div>
+
+            <motion.div
+              variants={revealVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.7, ease: 'easeOut', delay: 0.15 }}
               className="space-y-6"
             >
               <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
@@ -151,6 +169,15 @@ export function AboutPage({ lang }: AboutPageProps) {
                   <span>{t(lang, 'aboutSection2Value')}</span>
                 </li>
               </ul>
+              <a
+                href="https://arxiv.org/pdf/2410.22299"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 mt-5 px-4 py-2.5 text-sm font-medium text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-lg transition-all duration-200 hover:bg-emerald-100 hover:shadow-sm"
+              >
+                <ExternalLink className="w-4 h-4" />
+                Reference Paper
+              </a>
             </motion.div>
 
             {/* Edge Detection */}
@@ -175,6 +202,15 @@ export function AboutPage({ lang }: AboutPageProps) {
                   <span>{t(lang, 'aboutSection2Edge2')}</span>
                 </li>
               </ul>
+              <a
+                href="https://www.researchgate.net/profile/Rammohan-Mallipeddi/publication/286331343_Generating_Music_from_an_Image/links/5667e13708aef42b57878606/Generating-Music-from-an-Image.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 mt-5 px-4 py-2.5 text-sm font-medium text-teal-700 bg-teal-50 border border-teal-200 rounded-lg transition-all duration-200 hover:bg-teal-100 hover:shadow-sm"
+              >
+                <ExternalLink className="w-4 h-4" />
+                Reference Paper
+              </a>
             </motion.div>
           </section>
 
