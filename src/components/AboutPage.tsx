@@ -13,15 +13,15 @@ export function AboutPage({ lang }: AboutPageProps) {
     offset: ['start start', 'end start'],
   });
 
-  const scale = useTransform(scrollYProgress, [0, 1], [6, 1]);
-  const opacity = useTransform(scrollYProgress, [0, 0.3, 0.8, 1], [0, 0.4, 0.9, 1]);
+  const scale = useTransform(scrollYProgress, [0, 0.7, 1], [6, 1, 1]);
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.6, 0.7, 1], [0, 0.4, 1, 1, 1]);
 
   const heroText = t(lang, 'aboutHeroText');
 
   return (
     <div className="bg-white">
       {/* Sticky scroll animation section */}
-      <div ref={containerRef} className="h-[300vh] relative">
+      <div ref={containerRef} className="h-[400vh] relative">
         <div className="sticky top-0 h-screen overflow-hidden flex items-center justify-center">
           {/* Background video */}
           <video
