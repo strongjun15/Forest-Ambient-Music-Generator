@@ -1,10 +1,16 @@
 import { useRef } from 'react';
 import { useScroll, useTransform, motion } from 'framer-motion';
+import { Github } from 'lucide-react';
 import { type Lang, t } from '../i18n';
 
 interface AboutPageProps {
   lang: Lang;
 }
+
+const revealVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0 },
+};
 
 export function AboutPage({ lang }: AboutPageProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -23,7 +29,6 @@ export function AboutPage({ lang }: AboutPageProps) {
       {/* Sticky scroll animation section */}
       <div ref={containerRef} className="h-[400vh] relative">
         <div className="sticky top-0 h-screen overflow-hidden flex items-center justify-center">
-          {/* Background video */}
           <video
             autoPlay
             muted
@@ -34,7 +39,6 @@ export function AboutPage({ lang }: AboutPageProps) {
           />
           <div className="absolute inset-0 bg-black/30" />
 
-          {/* Animated text */}
           <motion.div
             style={{ scale, opacity }}
             className="relative z-10 text-center px-6"
@@ -48,38 +52,153 @@ export function AboutPage({ lang }: AboutPageProps) {
 
       {/* Content sections */}
       <div className="relative z-10 bg-white">
-        <div className="max-w-3xl mx-auto px-6 py-24 space-y-24">
+        <div className="max-w-3xl mx-auto px-6 py-24 space-y-32">
           {/* Section 1 */}
-          <motion.section
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-100px' }}
-            transition={{ duration: 0.8, ease: 'easeOut' }}
-          >
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6 leading-snug">
+          <section>
+            <motion.h2
+              variants={revealVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.7, ease: 'easeOut' }}
+              className="text-2xl sm:text-3xl font-bold text-gray-900 mb-8 leading-snug"
+            >
               {t(lang, 'aboutSection1Title')}
-            </h2>
-            <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
+            </motion.h2>
+
+            {/* Image card */}
+            <motion.div
+              variants={revealVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.7, ease: 'easeOut', delay: 0.1 }}
+              className="mb-8"
+            >
+              <div className="bg-gray-50 rounded-3xl p-3 sm:p-4 shadow-xl">
+                <img
+                  src="/스크린샷_2026-05-07_오후_8.18.20.png"
+                  alt="Ambient music listening"
+                  className="w-full h-auto rounded-2xl object-cover"
+                />
+              </div>
+            </motion.div>
+
+            <motion.p
+              variants={revealVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.7, ease: 'easeOut', delay: 0.2 }}
+              className="text-base sm:text-lg text-gray-600 leading-relaxed"
+            >
               {t(lang, 'aboutSection1Body')}
-            </p>
-          </motion.section>
+            </motion.p>
+          </section>
 
           {/* Section 2 */}
-          <motion.section
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-100px' }}
-            transition={{ duration: 0.8, ease: 'easeOut' }}
-          >
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6 leading-snug">
+          <section>
+            <motion.h2
+              variants={revealVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.7, ease: 'easeOut' }}
+              className="text-2xl sm:text-3xl font-bold text-gray-900 mb-8 leading-snug"
+            >
               {t(lang, 'aboutSection2Title')}
-            </h2>
-            {t(lang, 'aboutSection2Body') && (
+            </motion.h2>
+
+            <motion.div
+              variants={revealVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.7, ease: 'easeOut', delay: 0.1 }}
+              className="space-y-6"
+            >
               <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
-                {t(lang, 'aboutSection2Body')}
+                {t(lang, 'aboutSection2Intro')}
               </p>
-            )}
-          </motion.section>
+              <p className="text-base sm:text-lg text-gray-500 leading-relaxed italic border-l-4 border-gray-200 pl-4">
+                {t(lang, 'aboutSection2Note')}
+              </p>
+            </motion.div>
+
+            {/* HSV Analysis */}
+            <motion.div
+              variants={revealVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.7, ease: 'easeOut', delay: 0.15 }}
+              className="mt-10 bg-gray-50 rounded-2xl p-6 sm:p-8"
+            >
+              <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-4">
+                {t(lang, 'aboutSection2HsvTitle')}
+              </h3>
+              <ul className="space-y-3 text-base text-gray-600">
+                <li className="flex items-start gap-2">
+                  <span className="mt-1.5 w-2 h-2 rounded-full bg-emerald-500 shrink-0" />
+                  <span>{t(lang, 'aboutSection2Hue')}</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="mt-1.5 w-2 h-2 rounded-full bg-emerald-500 shrink-0" />
+                  <span>{t(lang, 'aboutSection2Saturation')}</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="mt-1.5 w-2 h-2 rounded-full bg-emerald-500 shrink-0" />
+                  <span>{t(lang, 'aboutSection2Value')}</span>
+                </li>
+              </ul>
+            </motion.div>
+
+            {/* Edge Detection */}
+            <motion.div
+              variants={revealVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.7, ease: 'easeOut', delay: 0.2 }}
+              className="mt-6 bg-gray-50 rounded-2xl p-6 sm:p-8"
+            >
+              <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-4">
+                {t(lang, 'aboutSection2EdgeTitle')}
+              </h3>
+              <ul className="space-y-3 text-base text-gray-600">
+                <li className="flex items-start gap-2">
+                  <span className="mt-1.5 w-2 h-2 rounded-full bg-teal-500 shrink-0" />
+                  <span>{t(lang, 'aboutSection2Edge1')}</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="mt-1.5 w-2 h-2 rounded-full bg-teal-500 shrink-0" />
+                  <span>{t(lang, 'aboutSection2Edge2')}</span>
+                </li>
+              </ul>
+            </motion.div>
+          </section>
+
+          {/* GitHub CTA */}
+          <motion.div
+            variants={revealVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.7, ease: 'easeOut' }}
+            className="flex justify-center pt-8 pb-12"
+          >
+            <a
+              href="https://github.com/strongjun15/Forest-Ambient-Music-Generator"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 px-8 py-4 bg-gray-900 text-white text-sm font-medium
+                         rounded-full shadow-lg transition-all duration-200
+                         hover:bg-gray-700 hover:shadow-xl hover:scale-[1.03] active:scale-[0.97]"
+            >
+              <Github className="w-5 h-5" />
+              Github Repository
+            </a>
+          </motion.div>
         </div>
       </div>
     </div>
