@@ -12,8 +12,6 @@
 
 ## ⚙️ How It Works
 
-This project translates the "DNA" of an image into music through a mathematical mapping system.
-
 ### 1. HSV Color Model Analysis
 We extract atmospheric data using the **HSV (Hue, Saturation, Value)** color space:
 - **Hue**: Determines the core mood and emotional tone.
