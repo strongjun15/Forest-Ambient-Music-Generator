@@ -33,23 +33,7 @@ Using **OpenCV's Canny Filter**, we calculate the **Edge Density** of the image:
 
 ---
 
-## 🚀 Getting Started
-
-1. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-2. **Run the development server**
-   ```bash
-   npm run dev
-   ```
-
----
-
 ## 📜 License
 
 Copyright © 2026 **Lumos**.  
-This project is [MIT](https://opensource.org/licenses/MIT) licensed.
-
 **Built with ✨ Bolt.new**
