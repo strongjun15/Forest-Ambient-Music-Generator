@@ -35,5 +35,5 @@ Using **OpenCV's Canny Filter**, we calculate the **Edge Density** of the image:
 
 ## 📜 License
 
-Copyright © 2026 **Lumos**.  
+Copyright © 2026 **Jason Lee**. aka Lumos  
 **Built with ✨ Bolt.new**
